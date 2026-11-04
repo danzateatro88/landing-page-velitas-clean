@@ -1,0 +1,189 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              🚀 VICHISBOH LANDING PAGE - PRODUCTION CHECKLIST               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📌 CONFIGURACIÓN DE PRODUCCIÓN
+─────────────────────────────────────────────────────────────────────────────
+
+✅ FRONTEND - ACTUALIZADO PARA PRODUCCIÓN
+
+[✓] URL del Backend Configurado Dinámicamente
+    Archivo: landing_page_oficial_kit_de_velitas_vichisboh.tsx (línea 962)
+    Implementación: ${import.meta.env.VITE_API_URL || 'http://localhost:3001'}
+    
+[✓] Variables de Entorno Creadas
+    - .env.local (desarrollo local)
+    - .env.example (template de ejemplo)
+    
+[✓] .gitignore Configurado
+    - Ignora .env.local y variables sensibles
+    - Ignora node_modules, dist, .vite
+    
+[✓] Servidor Vite Corriendo
+    URL: http://localhost:4173/
+    Estado: ✅ OPERATIVO
+    
+─────────────────────────────────────────────────────────────────────────────
+
+🔧 PRÓXIMOS PASOS PARA PRODUCCIÓN
+
+PASO 1: Definir URL del Backend
+────────────────────────────────
+Reemplaza estos valores:
+  - Backend Local:     http://localhost:3001
+  - Backend Staging:   https://api-staging.tu-dominio.com
+  - Backend Producción: https://api.tu-dominio.com
+
+PASO 2: Configurar Variable de Entorno (Elige una opción)
+──────────────────────────────────────────────────────────
+
+Opción A - Vercel (Recomendado)
+  1. Ir a: https://vercel.com/dashboard
+  2. Seleccionar tu proyecto
+  3. Settings → Environment Variables
+  4. Agregar: VITE_API_URL = https://api.vichisboh.com
+  
+Opción B - Netlify
+  1. Ir a: https://app.netlify.com
+  2. Seleccionar tu sitio
+  3. Site Settings → Build & deploy → Environment
+  4. Agregar: VITE_API_URL = https://api.vichisboh.com
+  
+Opción C - VPS/Servidor Propio
+  1. Crear .env.production:
+     VITE_API_URL=https://api.vichisboh.com
+  2. Ejecutar: npm run build
+  3. Copiar contenido de dist/ a raíz web
+  
+PASO 3: Build
+──────────────
+npm run build
+
+PASO 4: Desplegar
+──────────────────
+
+Para Vercel:
+  npm install -g vercel
+  vercel --prod
+  
+Para Netlify:
+  npm install -g netlify-cli
+  netlify deploy --prod --dir=dist
+  
+Para VPS (Apache/Nginx):
+  cp -r dist/* /var/www/html/
+  
+─────────────────────────────────────────────────────────────────────────────
+
+🔍 VERIFICACIÓN POST-DESPLIEGUE
+
+[ ] 1. Abrir Frontend en Producción
+    URL: https://tu-dominio.com
+    ✓ Página carga sin errores
+    ✓ Estilos se ven correctamente
+    ✓ Imágenes cargan
+    
+[ ] 2. Verificar Variable de Entorno
+    Abrir DevTools (F12) → Console
+    Ejecutar: console.log(import.meta.env.VITE_API_URL)
+    ✓ Debe mostrar tu URL de backend (no localhost)
+    
+[ ] 3. Probar Flujo de Checkout
+    [ ] Ir a "Taller de Velitas"
+    [ ] Seleccionar un kit
+    [ ] Completar personalizaciones
+    [ ] Hacer clic en "Confirmar Pedido"
+    [ ] Verificar en Network (DevTools) que la petición va a tu backend
+    ✓ Status debe ser 200 (no CORS error)
+    
+[ ] 4. Probar desde Móvil
+    ✓ Acceder desde iPhone/Android
+    ✓ Responsive design funciona
+    ✓ Checkout funciona en móvil
+    
+[ ] 5. Verificar CORS
+    Si aparece error "CORS":
+    Configurar en backend:
+    
+    // Node.js/Express
+    const cors = require('cors');
+    app.use(cors({
+      origin: ['https://tu-frontend.com', 'http://localhost:4173'],
+      credentials: true
+    }));
+    
+[ ] 6. Verificar HTTPS
+    ✓ Dominio con certificado SSL/TLS
+    ✓ Redirección de HTTP → HTTPS
+    
+[ ] 7. Validar Seguridad
+    ✓ No hay URLs hardcodeadas a localhost
+    ✓ Variables sensibles en .env, no en código
+    ✓ .gitignore ignora .env.local
+    ✓ Backend valida datos entrantes
+
+─────────────────────────────────────────────────────────────────────────────
+
+⚠️ PUNTOS CRÍTICOS
+
+1. HTTPS OBLIGATORIO
+   - Stripe requiere HTTPS en producción
+   - Configurar certificado SSL/TLS
+   - Redirigir HTTP → HTTPS
+   
+2. CORS DEBE ESTAR CONFIGURADO
+   - Backend debe aceptar requests desde tu dominio frontend
+   - Error CORS = frontend y backend no hablan entre sí
+   
+3. NO DEJAR LOCALHOST EN PRODUCCIÓN
+   - Si VITE_API_URL no está definida, usa localhost
+   - Esto es un fallback, NO confiar en él en prod
+   - Asegurar que VITE_API_URL esté correctamente definida
+   
+4. VALIDACIÓN EN BACKEND
+   - NUNCA confiar en datos del frontend
+   - Validar cantidad, monto, usuario, autenticación
+   
+5. RATE LIMITING
+   - Proteger endpoints contra abuso
+   - Implementar límites de peticiones por IP/usuario
+
+─────────────────────────────────────────────────────────────────────────────
+
+📊 MATRIZ DE CONFIGURACIÓN
+
+Desarrollo Local:
+  Frontend: http://localhost:4173
+  Backend:  http://localhost:3001
+  VITE_API_URL: (no definida, usa fallback)
+  
+Staging:
+  Frontend: https://staging.vichisboh.com
+  Backend:  https://api-staging.vichisboh.com
+  VITE_API_URL: https://api-staging.vichisboh.com
+  
+Producción:
+  Frontend: https://vichisboh.com
+  Backend:  https://api.vichisboh.com
+  VITE_API_URL: https://api.vichisboh.com
+
+─────────────────────────────────────────────────────────────────────────────
+
+📞 CONTACTOS
+
+Frontend Dev:     http://localhost:4173 (local)
+Backend Dev:      http://localhost:3001 (local)
+Documentación:    Ver archivos .md en la carpeta
+Ejemplo .env:     .env.example
+Variables Local:  .env.local (git-ignored)
+
+─────────────────────────────────────────────────────────────────────────────
+
+✨ ESTADO: LISTO PARA PRODUCCIÓN ✨
+
+El frontend está completamente preparado. Solo necesitas:
+1. URL final del backend
+2. Definir VITE_API_URL en tu plataforma de hosting
+3. Hacer el build y despliegue
+
+Última actualización: 4 de Noviembre, 2026
