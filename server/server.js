@@ -8,7 +8,14 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:4173';
 
-app.use(cors({ origin: [CLIENT_URL, CLIENT_URL.replace('localhost', '127.0.0.1')] }));
+// CORS configuration: allow requests from local dev, Vercel production, and other authorized origins
+const allowedOrigins = [
+  CLIENT_URL,
+  CLIENT_URL.replace('localhost', '127.0.0.1'),
+  'https://landing-page-velitas-clean-six.vercel.app' // Production Vercel URL
+];
+
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 // Official prices (CAD) — the server never trusts the amount sent by the browser.
