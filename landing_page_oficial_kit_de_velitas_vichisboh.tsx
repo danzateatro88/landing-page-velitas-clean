@@ -215,22 +215,15 @@ const WaveDivider = ({
   id: string;
   className?: string;
 }) => {
-  // Create a wavy SVG pattern as a data URL
-  const waveSvgString = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 28" preserveAspectRatio="none">
-      <path d="M0 14 C9 0 19 0 28 14 S47 28 56 14 V28 H0 Z" fill="${encodeURIComponent(color)}" />
-    </svg>
-  `.trim();
-  
-  const svgDataUrl = `data:image/svg+xml;base64,${Buffer.from(waveSvgString).toString('base64')}`;
+  // Use background-image with inline SVG patterns for smooth, non-distorting waves
+  const wavePattern = color === '#61602D' ? '/wave-pattern-dark.svg' : '/wave-pattern.svg';
   
   return (
     <div
       aria-hidden="true"
-      className={`block w-full h-5 sm:h-7 ${className}`}
+      className={`block w-full h-5 sm:h-7 bg-repeat-x ${className}`}
       style={{
-        backgroundImage: `url("${svgDataUrl}")`,
-        backgroundRepeat: 'repeat-x',
+        backgroundImage: `url('${wavePattern}')`,
         backgroundSize: '56px auto',
         backgroundPosition: '0 0'
       }}
