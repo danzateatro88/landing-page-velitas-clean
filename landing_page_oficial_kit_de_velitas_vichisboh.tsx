@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   Sparkles,
   Flame,
@@ -824,6 +824,16 @@ export default function App() {
   // 'std3' ($22.00), 'std5' ($29.99), 'custom3' / 'custom5' / 'customFam' (every candle = free text written by the client)
   const [studioCategory, setStudioCategory] = useState('standard'); // 'standard' | 'custom'
   const [kitMode, setKitMode] = useState('std3');
+  const inputsContainerRef = useRef(null);
+
+  // Smooth scroll to inputs container when a kit is selected
+  const scrollToInputs = () => {
+    setTimeout(() => {
+      if (inputsContainerRef.current) {
+        inputsContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 0);
+  };
   const [familyQty, setFamilyQty] = useState(4);
 
   // Selected wishes & family names for live preview
@@ -1237,10 +1247,10 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => handleSelectStudioCategory('standard')}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-extrabold transition-all ${
+                className={`px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
                   studioCategory === 'standard'
-                    ? 'bg-[#FAF6F0] text-[#61602D] border-2 border-[#90414D] shadow-[3px_4px_0px_#90414D]'
-                    : 'border-2 border-transparent text-[#FAF6F0] hover:text-[#EAB4BB]'
+                    ? 'bg-[#FAF6F0] text-[#61602D] border-2 border-[#90414D] shadow-lg shadow-[#90414D]/50 scale-105'
+                    : 'bg-[#FAF6F0]/20 border-2 border-[#EAB4BB]/40 text-[#FAF6F0] hover:bg-[#FAF6F0]/30 hover:border-[#EAB4BB] hover:-translate-y-1'
                 }`}
               >
                 {t.studio.tabStd}
@@ -1248,10 +1258,10 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => handleSelectStudioCategory('custom')}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-extrabold transition-all ${
+                className={`px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
                   studioCategory === 'custom'
-                    ? 'bg-[#C56A79] text-white border-2 border-[#90414D] shadow-[3px_4px_0px_#90414D]'
-                    : 'border-2 border-transparent text-[#FAF6F0] hover:text-[#EAB4BB]'
+                    ? 'bg-[#C56A79] text-white border-2 border-[#90414D] shadow-lg shadow-[#90414D]/50 scale-105'
+                    : 'bg-[#EAB4BB]/20 border-2 border-[#EAB4BB]/40 text-[#FAF6F0] hover:bg-[#EAB4BB]/30 hover:border-[#EAB4BB] hover:-translate-y-1'
                 }`}
               >
                 {t.studio.tabCustom}
@@ -1268,7 +1278,7 @@ export default function App() {
                   {/* Standard 3 Candles - $22.00 */}
                   <button
                     type="button"
-                    onClick={() => setKitMode('std3')}
+                    onClick={() => { setKitMode('std3'); scrollToInputs(); }}
                     className={`p-5 rounded-3xl text-left min-w-0 break-words border-2 transition-all ${
                       kitMode === 'std3'
                         ? 'bg-[#FAF6F0] border-[#90414D] shadow-[4px_5px_0px_#90414D] -translate-y-0.5'
@@ -1292,7 +1302,7 @@ export default function App() {
                   {/* Standard 5 Candles - $29.99 */}
                   <button
                     type="button"
-                    onClick={() => setKitMode('std5')}
+                    onClick={() => { setKitMode('std5'); scrollToInputs(); }}
                     className={`p-5 rounded-3xl text-left min-w-0 break-words border-2 transition-all ${
                       kitMode === 'std5'
                         ? 'bg-[#FAF6F0] border-[#90414D] shadow-[4px_5px_0px_#90414D] -translate-y-0.5'
@@ -1319,7 +1329,7 @@ export default function App() {
                     {/* Custom 3: 2 names + 1 wish */}
                     <button
                       type="button"
-                      onClick={() => setKitMode('custom3')}
+                      onClick={() => { setKitMode('custom3'); scrollToInputs(); }}
                       className={`p-4 rounded-3xl text-left min-w-0 break-words border-2 transition-all ${
                         kitMode === 'custom3'
                           ? 'bg-[#FAF6F0] border-[#90414D] shadow-[4px_5px_0px_#90414D] -translate-y-0.5'
@@ -1343,7 +1353,7 @@ export default function App() {
                     {/* Custom 5: 3 names + 2 wishes */}
                     <button
                       type="button"
-                      onClick={() => setKitMode('custom5')}
+                      onClick={() => { setKitMode('custom5'); scrollToInputs(); }}
                       className={`p-4 rounded-3xl text-left min-w-0 break-words border-2 transition-all ${
                         kitMode === 'custom5'
                           ? 'bg-[#FAF6F0] border-[#90414D] shadow-[4px_5px_0px_#90414D] -translate-y-0.5'
@@ -1367,7 +1377,7 @@ export default function App() {
                     {/* Custom Family: Each candle = name + wish */}
                     <button
                       type="button"
-                      onClick={() => setKitMode('customFam')}
+                      onClick={() => { setKitMode('customFam'); scrollToInputs(); }}
                       className={`p-4 rounded-3xl text-left min-w-0 break-words border-2 transition-all ${
                         kitMode === 'customFam'
                           ? 'bg-[#FAF6F0] border-[#90414D] shadow-[4px_5px_0px_#90414D] -translate-y-0.5'
@@ -1441,7 +1451,7 @@ export default function App() {
                 <h4 className="font-baloo font-bold text-lg text-[#FAF6F0] mb-2">
                   {t.studio.stepWords}
                 </h4>
-                <div className="space-y-2.5">
+                <div ref={inputsContainerRef} className="space-y-2.5">
                   {kitMode.startsWith('custom') && (
                     <p className="text-sm text-[#EAB4BB] font-garamond italic mb-2.5">
                       {t.studio.customStepHint}
