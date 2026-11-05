@@ -12,7 +12,12 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:4173';
 const allowedOrigins = [
   CLIENT_URL,
   CLIENT_URL.replace('localhost', '127.0.0.1'),
-  'https://landing-page-velitas-clean-six.vercel.app' // Production Vercel URL
+  'https://landing-page-velitas-clean-six.vercel.app',
+  'https://vichisbohovelitas.vercel.app', // Production Vercel URL
+  ...(process.env.EXTRA_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean)
 ];
 
 app.use(cors({ origin: allowedOrigins }));
