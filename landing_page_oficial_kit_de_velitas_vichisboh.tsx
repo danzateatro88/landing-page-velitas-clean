@@ -215,17 +215,19 @@ const WaveDivider = ({
   id: string;
   className?: string;
 }) => {
-  // Use background-image with inline SVG patterns for smooth, non-distorting waves
+  // Use background-image with SVG patterns for smooth, non-distorting waves
+  // Increased height to ensure full wave pattern is visible
   const wavePattern = color === '#61602D' ? '/wave-pattern-dark.svg' : '/wave-pattern.svg';
   
   return (
     <div
       aria-hidden="true"
-      className={`block w-full h-5 sm:h-7 bg-repeat-x ${className}`}
+      className={`block w-full h-12 sm:h-16 bg-repeat-x ${className}`}
       style={{
         backgroundImage: `url('${wavePattern}')`,
-        backgroundSize: '56px auto',
-        backgroundPosition: '0 0'
+        backgroundSize: '56px 100%',
+        backgroundPosition: '0 0',
+        backgroundAttachment: 'scroll'
       }}
     />
   );
