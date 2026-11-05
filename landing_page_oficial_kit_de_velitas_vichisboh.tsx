@@ -214,21 +214,29 @@ const WaveDivider = ({
   color: string;
   id: string;
   className?: string;
-}) => (
-  <svg
-    aria-hidden="true"
-    focusable="false"
-    className={`block w-full h-5 sm:h-7 ${className}`}
-    preserveAspectRatio="none"
-  >
-    <defs>
-      <pattern id={id} x="0" y="0" width="56" height="28" patternUnits="userSpaceOnUse">
-        <path d="M0 14 C9 0 19 0 28 14 S47 28 56 14 V28 H0 Z" fill={color} />
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill={`url(#${id})`} />
-  </svg>
-);
+}) => {
+  // Create a wavy SVG pattern as a data URL
+  const waveSvgString = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 28" preserveAspectRatio="none">
+      <path d="M0 14 C9 0 19 0 28 14 S47 28 56 14 V28 H0 Z" fill="${encodeURIComponent(color)}" />
+    </svg>
+  `.trim();
+  
+  const svgDataUrl = `data:image/svg+xml;base64,${Buffer.from(waveSvgString).toString('base64')}`;
+  
+  return (
+    <div
+      aria-hidden="true"
+      className={`block w-full h-5 sm:h-7 ${className}`}
+      style={{
+        backgroundImage: `url("${svgDataUrl}")`,
+        backgroundRepeat: 'repeat-x',
+        backgroundSize: '56px auto',
+        backgroundPosition: '0 0'
+      }}
+    />
+  );
+};
 
 const CandleIllustration = ({
   words = ['Amor', 'Salud', 'Dinero'],
