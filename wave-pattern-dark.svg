@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 28" preserveAspectRatio="none">
-  <defs>
-    <linearGradient id="waveGradientDark" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#61602D;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#61602D;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <path d="M0 14 C9 0 19 0 28 14 S47 28 56 14 V28 H0 Z" fill="#61602D" />
-</svg>

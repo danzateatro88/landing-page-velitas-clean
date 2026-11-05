@@ -19,6 +19,7 @@ import {
   Sliders
 } from 'lucide-react';
 import vickyphoto from './foto vicky .jpeg';
+import velitasImage from './velitas .jpg';
 
 // ============================================================================
 // 1. BRAND ASSETS & CUSTOM SVGs (STRICT RULES FROM VICTORIA'S DOC)
@@ -214,24 +215,23 @@ const WaveDivider = ({
   color: string;
   id: string;
   className?: string;
-}) => {
-  // Use background-image with SVG patterns for smooth, non-distorting waves
-  // Increased height to ensure full wave pattern is visible
-  const wavePattern = color === '#61602D' ? '/wave-pattern-dark.svg' : '/wave-pattern.svg';
-  
-  return (
-    <div
+}) => (
+  <div className="w-full overflow-hidden leading-none">
+    <svg
       aria-hidden="true"
-      className={`block w-full h-12 sm:h-16 bg-repeat-x ${className}`}
-      style={{
-        backgroundImage: `url('${wavePattern}')`,
-        backgroundSize: '56px 100%',
-        backgroundPosition: '0 0',
-        backgroundAttachment: 'scroll'
-      }}
-    />
-  );
-};
+      focusable="false"
+      className={`w-full min-w-[1440px] h-7 block ${className}`}
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <pattern id={id} x="0" y="0" width="56" height="28" patternUnits="userSpaceOnUse">
+          <path d="M0 14 C9 0 19 0 28 14 S47 28 56 14 V28 H0 Z" fill={color} />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${id})`} />
+    </svg>
+  </div>
+);
 
 const CandleIllustration = ({
   words = ['Amor', 'Salud', 'Dinero'],
@@ -418,8 +418,6 @@ const TRANSLATIONS = {
       titleHighlight: 'especialmente para los tuyos',
       subtitle:
         'Kits rituales del 7 de diciembre preparados uno a uno en mi mesa de taller: velas blancas reales de 5,5 pulgadas (14 cm) con deseos y nombres en vinilo dorado.',
-      hookQuote:
-        '« En cualquier tienda compras la vela, pero no el sentimiento. Encender una velita con el nombre de las personas que amas y el deseo para su año es traer el calor del 7 de diciembre a tu mesa en Canadá. »',
       ctaPrimary: 'Personalizar mi Kit',
       ctaSecondary: 'Comprar ahora',
       measureBadge: '✨ Así brillarán tus velitas el 7 de diciembre · Altura real: 14 cm (5,5")',
@@ -554,8 +552,6 @@ const TRANSLATIONS = {
       titleHighlight: 'spécialement pour les vôtres',
       subtitle:
         'Coffrets rituels du 7 décembre préparés un par un dans mon atelier : vraies bougies blanches de 5,5 pouces (14 cm) avec vœux et prénoms en vinyle doré.',
-      hookQuote:
-        '« Dans n’importe quel magasin on achète la bougie, mais pas l’émotion. Allumer une bougie avec le prénom de ceux qu’on aime et un vœu pour leur année, c’est inviter la chaleur du 7 décembre à votre table au Canada. »',
       ctaPrimary: 'Personnaliser mon Kit',
       ctaSecondary: 'Acheter maintenant',
       measureBadge: '✨ Voici comment brilleront vos bougies le 7 décembre · Hauteur réelle : 14 cm (5,5")',
@@ -690,8 +686,6 @@ const TRANSLATIONS = {
       titleHighlight: 'especially for your loved ones',
       subtitle:
         'December 7 ritual kits crafted one by one at my studio table: authentic 5.5-inch (14 cm) white candles with gold vinyl wishes and family names.',
-      hookQuote:
-        '“At any store you buy the candle, not the feeling. Lighting a candle bearing the names of the people you love and a wish for their year brings the warmth of December 7 to your table in Canada.”',
       ctaPrimary: 'Customize My Kit',
       ctaSecondary: 'Buy now',
       measureBadge: '✨ This is how your candles will glow on December 7 · Real height: 14 cm (5.5")',
@@ -1136,10 +1130,14 @@ export default function App() {
               <span className="text-[#EAB4BB] block sm:inline">{t.hero.titleHighlight}</span>
             </h1>
 
-            {/* Victoria's Central Emotional Hook */}
-            <blockquote className="w-full max-w-2xl mx-auto px-5 py-4 rounded-3xl bg-[#FAF6F0]/10 border-y-2 border-[#EAB4BB]/60 font-garamond italic text-base sm:text-lg text-[#FAF6F0] opacity-90 leading-relaxed">
-              {t.hero.hookQuote}
-            </blockquote>
+            {/* Product image inside the hero frame */}
+            <div className="w-full max-w-2xl mx-auto p-3 sm:p-4 rounded-3xl bg-[#FAF6F0]/10 border-y-2 border-[#EAB4BB]/60">
+              <img
+                src={velitasImage}
+                alt="Kit de Velitas vichisboh*"
+                className="w-full h-auto rounded-lg object-cover shadow-sm"
+              />
+            </div>
 
             <p className="text-sm sm:text-base text-[#F4EDE2] leading-relaxed max-w-2xl mx-auto">
               {t.hero.subtitle}
@@ -1189,7 +1187,7 @@ export default function App() {
         id="que-incluye"
         className="relative py-14 px-4 sm:px-6 bg-[#F4EDE2] border-b border-[#C6A77E]/40"
       >
-        <div className="absolute inset-x-0 -top-[19px] sm:-top-[27px]">
+        <div className="absolute inset-x-0 -top-[27px]">
           <WaveDivider color="#F4EDE2" id="wave-includes" />
         </div>
         <div className="max-w-6xl mx-auto">
