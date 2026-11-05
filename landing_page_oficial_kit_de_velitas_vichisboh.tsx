@@ -19,7 +19,7 @@ import {
   Sliders
 } from 'lucide-react';
 import vickyphoto from './foto vicky .jpeg';
-import velitasImage from './velitas .jpg';
+import velitasImage from './velitas.jpg';
 
 // ============================================================================
 // 1. BRAND ASSETS & CUSTOM SVGs (STRICT RULES FROM VICTORIA'S DOC)
