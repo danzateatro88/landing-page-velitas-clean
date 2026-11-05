@@ -206,7 +206,7 @@ const buildScallopPath = (bumps = 14) => {
 };
 const SCALLOP_PATH = buildScallopPath(14);
 
-// Reusable wave edge: a repeating tile so the curve never stretches on mobile.
+// Reusable wave edge: a repeating tile so the curve never stretches on mobile (min width keeps it smooth).
 const WaveDivider = ({
   color,
   id,
