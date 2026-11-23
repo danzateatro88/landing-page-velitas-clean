@@ -1,3 +1,8 @@
+AVISO: documento histórico. Las instrucciones sobre VITE_API_URL y backend
+externo ya no aplican a esta rama. El frontend usa /api; Vite lo redirige al
+puerto 3001 en local. En Vercel configurar STRIPE_SECRET_KEY; CLIENT_URL es
+opcional y, si se define, se usa para los retornos de Stripe. Sin publicar aún.
+
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║              🚀 VICHISBOH LANDING PAGE - PRODUCTION CHECKLIST               ║
 ╚══════════════════════════════════════════════════════════════════════════════╝

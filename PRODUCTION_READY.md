@@ -1,3 +1,11 @@
+# Aviso de migración local
+
+Este documento es histórico: sus instrucciones sobre `VITE_API_URL` y un backend
+externo ya no describen esta rama. El frontend usa `/api`; en desarrollo, Vite
+lo redirige al servidor local en el puerto 3001. En Vercel, las funciones de
+`api/` requieren `STRIPE_SECRET_KEY`; `CLIENT_URL` es opcional y, si se define,
+se usa para los retornos de Stripe. La migración aún no se ha publicado.
+
 # ✅ Frontend Listo para Producción
 
 ## 🎯 Cambios Implementados
